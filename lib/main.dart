@@ -37,6 +37,7 @@ class MainApp extends StatelessWidget {
         Color(user == null ? Colors.teal.toARGB32() : user.colorScheme);
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Repeater',
       theme: Styles.lightTheme.copyWith(
         colorScheme: ColorScheme.fromSeed(

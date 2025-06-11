@@ -140,8 +140,8 @@ class UserPreferences extends ChangeNotifier {
     for (final scheduleEntry in List<ScheduleEntry>.from(currentSchedule)) {
       if (isToday(scheduleEntry.startDate)) continue;
       if (scheduleEntry.startDate.isBefore(today)) {
-        currentSchedule.remove(scheduleEntry);
         scheduleHistory.add(scheduleEntry);
+        currentSchedule.remove(scheduleEntry);
       }
     }
 

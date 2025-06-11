@@ -25,7 +25,10 @@ class ScheduleDetailsScreen extends StatelessWidget {
         (scheduleEntry.fraction == null) ? '' : ' · ${scheduleEntry.fraction}';
     final maqraNumbers =
         'Maqra ${scheduleEntry.maqraNumbers.join(', ')}$fraction';
-    final date = DateFormat.yMMMd().format(scheduleEntry.startDate);
+    final date = (DateFormat.yMMMd().format(DateTime.now()) ==
+            DateFormat.yMMMd().format(scheduleEntry.startDate))
+        ? "Today"
+        : DateFormat.yMMMd().format(scheduleEntry.startDate);
     final time = DateFormat.jm().format(scheduleEntry.startDate);
 
     void markAsCompleted() {

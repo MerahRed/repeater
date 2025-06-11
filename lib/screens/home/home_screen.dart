@@ -15,6 +15,10 @@ import 'package:repeater/widgets/custom_list_view.dart';
 import 'package:repeater/widgets/gap.dart';
 import 'package:repeater/widgets/section_title.dart';
 
+// sabaq - hafal baru
+// sabqi - mengulang hafal pd juz sedang hafal
+// manzil - mengulang juz lama
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -101,12 +105,55 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  List<Widget> _memorizationSection(User user) => [
+        const SectionTitle('Memorization Info'),
+        ListTile(
+          leading: const Icon(Icons.book),
+          title: const Text('Has Khatam'),
+          trailing: Text(
+            (user.juzNumber == null) ? 'Yes' : 'No',
+            style: const TextStyle(fontSize: 15),
+          ),
+        ),
+        if (user.juzNumber != null) ...[
+          ListTile(
+            leading: const Icon(Icons.menu_book),
+            title: const Text('Current Juz'),
+            trailing: Text(
+              user.juzNumber.toString(),
+              style: const TextStyle(fontSize: 15),
+            ),
+          ),
+          ListTile(
+            leading: const Icon(Icons.brightness_low_outlined),
+            title: const Text('Current Maqra'),
+            trailing: Text(
+              user.maqraNumber.toString(),
+              style: const TextStyle(fontSize: 15),
+            ),
+          ),
+        ],
+        ListTile(
+          title: FilledButton.icon(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const EditScreen(),
+                ),
+              );
+            },
+            icon: const Icon(Icons.edit),
+            label: const Text('Edit Info'),
+          ),
+        )
+      ];
+
   List<Widget> _tasksSection(User user) => [
         const SectionTitle('Schedules'),
         if (todaySchedules.isEmpty)
           const ListTile(
             leading: Icon(Icons.not_started),
-            title: Text('You got no task for today.'),
+            title: Text('Your schedules will start tomorrow. ☺️'),
           )
         else
           ...todaySchedules.map((scheduleEntry) {
@@ -140,44 +187,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
                 label: const Text('See Schedules History'),
                 icon: const Icon(Icons.history),
-              )
+              ),
             ],
           ),
         ),
-      ];
-
-  List<Widget> _memorizationSection(User user) => [
-        const SectionTitle('Memorization Info'),
-        ListTile(
-          leading: const Icon(Icons.book),
-          title: const Text('Has Khatam'),
-          trailing: Text((user.juzNumber == null) ? 'Yes' : 'No'),
-        ),
-        if (user.juzNumber != null) ...[
-          ListTile(
-            leading: const Icon(Icons.menu_book),
-            title: const Text('Current Juz'),
-            trailing: Text(user.juzNumber.toString()),
-          ),
-          ListTile(
-            leading: const Icon(Icons.brightness_low_outlined),
-            title: const Text('Current Maqra'),
-            trailing: Text(user.maqraNumber.toString()),
-          ),
-        ],
-        ListTile(
-          title: FilledButton.icon(
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => const EditScreen(),
-                ),
-              );
-            },
-            icon: const Icon(Icons.edit),
-            label: const Text('Edit Info'),
-          ),
-        )
       ];
 
   List<Widget> _overallProgressSection(User user) => [
