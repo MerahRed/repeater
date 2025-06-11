@@ -23,13 +23,14 @@ class UserAdapter extends TypeAdapter<User> {
       .._lastLoginTime = fields[3] as DateTime
       .._schedules = (fields[4] as List?)?.cast<ScheduleEntry>()
       .._themeMode = fields[5] as String?
-      .._colorScheme = fields[6] as int?;
+      .._colorScheme = fields[6] as int?
+      .._scheduleHistory = (fields[7] as List?)?.cast<ScheduleEntry>();
   }
 
   @override
   void write(BinaryWriter writer, User obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj._juzNumber)
       ..writeByte(1)
@@ -43,7 +44,9 @@ class UserAdapter extends TypeAdapter<User> {
       ..writeByte(5)
       ..write(obj._themeMode)
       ..writeByte(6)
-      ..write(obj._colorScheme);
+      ..write(obj._colorScheme)
+      ..writeByte(7)
+      ..write(obj._scheduleHistory);
   }
 
   @override

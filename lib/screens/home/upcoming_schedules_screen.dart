@@ -22,7 +22,6 @@ class UpcomingSchedulesScreen extends StatelessWidget {
             .map(
               (scheduleEntry) => ScheduleListTile(
                 scheduleEntry: scheduleEntry,
-                enabled: false,
               ),
             )
             .toList(),

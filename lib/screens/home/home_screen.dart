@@ -5,6 +5,7 @@ import 'package:repeater/models/schedule_entry.dart';
 import 'package:repeater/models/user.dart';
 import 'package:repeater/screens/home/edit_screen.dart';
 import 'package:repeater/screens/home/juz_list_tile.dart';
+import 'package:repeater/screens/home/schedule_history.dart';
 import 'package:repeater/screens/home/schedule_list_tile.dart';
 import 'package:repeater/screens/home/upcoming_schedules_screen.dart';
 import 'package:repeater/services/user_preferences.dart';
@@ -30,6 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
   };
   List<ScheduleEntry> todaySchedules = [];
   List<ScheduleEntry> upcomingSchedules = [];
+  List<ScheduleEntry> scheduleHistory = [];
 
   @override
   void initState() {
@@ -55,6 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       todaySchedules = tempTodaySchedules;
       upcomingSchedules = tempUpcomingSchedules;
+      scheduleHistory = user.scheduleHistory;
     });
   }
 
@@ -110,17 +113,35 @@ class _HomeScreenState extends State<HomeScreen> {
             return ScheduleListTile(scheduleEntry: scheduleEntry);
           }),
         ListTile(
-          title: FilledButton.icon(
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) =>
-                      UpcomingSchedulesScreen(schedules: upcomingSchedules),
-                ),
-              );
-            },
-            icon: const Icon(Icons.upcoming),
-            label: const Text('See Upcoming Schedules'),
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              FilledButton.icon(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          UpcomingSchedulesScreen(schedules: upcomingSchedules),
+                    ),
+                  );
+                },
+                icon: const Icon(Icons.upcoming),
+                label: const Text('See Upcoming Schedules'),
+              ),
+              FilledButton.tonalIcon(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => ScheduleHistory(
+                        schedules: scheduleHistory,
+                      ),
+                    ),
+                  );
+                },
+                label: const Text('See Schedules History'),
+                icon: const Icon(Icons.history),
+              )
+            ],
           ),
         ),
       ];

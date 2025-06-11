@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_final_fields
+
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:repeater/models/juz.dart';
@@ -28,6 +30,9 @@ class User {
   @HiveField(6)
   int? _colorScheme;
 
+  @HiveField(7)
+  List<ScheduleEntry>? _scheduleHistory;
+
   User({
     int? juzNumber,
     int? maqraNumber,
@@ -36,6 +41,7 @@ class User {
     List<ScheduleEntry>? schedules,
     String? themeMode,
     int? colorScheme,
+    List<ScheduleEntry>? scheduleHistory,
   })  : _juzNumber = juzNumber,
         _maqraNumber = maqraNumber,
         _juzs = juzs ?? List.generate(30, (_) => Juz()),
@@ -45,7 +51,8 @@ class User {
             ),
         _schedules = schedules,
         _themeMode = themeMode,
-        _colorScheme = colorScheme;
+        _colorScheme = colorScheme,
+        _scheduleHistory = scheduleHistory;
 
   User copyWith({
     int? juzNumber,
@@ -55,6 +62,7 @@ class User {
     List<ScheduleEntry>? schedules,
     String? themeMode,
     int? colorScheme,
+    List<ScheduleEntry>? scheduleHistory,
   }) {
     return User(
       juzNumber: juzNumber ?? this.juzNumber,
@@ -64,6 +72,7 @@ class User {
       schedules: schedules ?? this.schedules,
       themeMode: themeMode ?? this.themeMode,
       colorScheme: colorScheme ?? this.colorScheme,
+      scheduleHistory: scheduleHistory ?? this.scheduleHistory,
     );
   }
 
@@ -73,7 +82,8 @@ class User {
   DateTime get lastLoginTime => _lastLoginTime;
   List<ScheduleEntry> get schedules => _schedules ?? [];
   String get themeMode => _themeMode ?? 'System';
-  int get colorScheme => _colorScheme ?? Colors.teal.value;
+  int get colorScheme => _colorScheme ?? Colors.teal.toARGB32();
+  List<ScheduleEntry> get scheduleHistory => _scheduleHistory ?? [];
 
   List<ScheduleEntry> getSchedulesByReviewType(String reviewType) => schedules
       .where(

@@ -57,16 +57,16 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/wakelock_plus/ios"
 
 SPEC CHECKSUMS:
-  awesome_notifications: dd5518ff1c80be03d4f1c40f04da9d9cc2a37af5
-  awesome_notifications_core: d02eed89738fa362d56cbd372850e9adcd2c6bef
+  awesome_notifications: 0f432b28098d193920b11a44cfa9d2d9313a3888
+  awesome_notifications_core: 429c28df8746780a474de177e5acde33af87da63
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
-  flutter_native_splash: edf599c81f74d093a4daf8e17bd7a018854bc778
+  flutter_native_splash: 35ddbc7228eafcb3969dcc5f1fbbe27c1145a4f0
   IosAwnCore: 653786a911089012092ce831f2945cd339855a89
-  package_info_plus: c0502532a26c7662a62a356cebe2692ec5fe4ec4
-  path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46
-  url_launcher_ios: 5334b05cef931de560670eeae103fd3e431ac3fe
-  video_player_avfoundation: 7c6c11d8470e1675df7397027218274b6d2360b3
-  wakelock_plus: 78ec7c5b202cab7761af8e2b2b3d0671be6c4ae1
+  package_info_plus: af8e2ca6888548050f16fa2f1938db7b5a5df499
+  path_provider_foundation: 080d55be775b7414fd5a5ef3ac137b97b097e564
+  url_launcher_ios: 694010445543906933d732453a59da0a173ae33d
+  video_player_avfoundation: 2cef49524dd1f16c5300b9cd6efd9611ce03639b
+  wakelock_plus: fd58c82b1388f4afe3fe8aa2c856503a262a5b03
 
 PODFILE CHECKSUM: 4a1de0c2d325c0c16749c3fe460dca9a3f413111
 

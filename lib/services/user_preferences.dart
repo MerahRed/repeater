@@ -43,6 +43,7 @@ class UserPreferences extends ChangeNotifier {
     List<ScheduleEntry>? schedules,
     String? themeMode,
     int? colorScheme,
+    List<ScheduleEntry>? scheduleHistory,
   }) async {
     final user = getUser()!.copyWith(
       juzNumber: juzNumber,
@@ -52,6 +53,7 @@ class UserPreferences extends ChangeNotifier {
       schedules: schedules,
       themeMode: themeMode,
       colorScheme: colorScheme,
+      scheduleHistory: scheduleHistory,
     );
     await createUser(user);
     notifyListeners();
@@ -111,6 +113,7 @@ class UserPreferences extends ChangeNotifier {
     final tomorrow = today.add(const Duration(days: 1));
     final currentSchedule = List<ScheduleEntry>.from(user.schedules);
     final newSchedules = <ScheduleEntry>[];
+    final scheduleHistory = <ScheduleEntry>[];
 
     final manzilSchedules = user.getSchedulesByReviewType('Manzil');
     final sabaqSchedules = user.getSchedulesByReviewType('Sabaq');
@@ -138,6 +141,7 @@ class UserPreferences extends ChangeNotifier {
       if (isToday(scheduleEntry.startDate)) continue;
       if (scheduleEntry.startDate.isBefore(today)) {
         currentSchedule.remove(scheduleEntry);
+        scheduleHistory.add(scheduleEntry);
       }
     }
 
@@ -147,6 +151,7 @@ class UserPreferences extends ChangeNotifier {
     await updateUser(
       lastLoginTime: now,
       schedules: currentSchedule,
+      scheduleHistory: scheduleHistory,
     );
   }
 }
