@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:repeater/l10n/app_localizations.dart';
 import 'package:repeater/services/notification_service.dart';
 import 'package:repeater/services/user_preferences.dart';
 import 'package:repeater/utils/constants/styles.dart';
@@ -37,6 +39,17 @@ class MainApp extends StatelessWidget {
         Color(user == null ? Colors.teal.toARGB32() : user.colorScheme);
 
     return MaterialApp(
+      locale: Locale(user?.locale ?? 'ms'),
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale("ms"),
+        Locale("en"),
+      ],
       debugShowCheckedModeBanner: false,
       title: 'Repeater',
       theme: Styles.lightTheme.copyWith(

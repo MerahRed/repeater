@@ -10,6 +10,7 @@ class ScheduleService {
     final schedules = <ScheduleEntry>[];
     final memorizedJuzs =
         user.juzs.where((juz) => juz.isFullyMemorized).toList();
+
     final now = DateTime.now().copyWith(
       second: 0,
       millisecond: 0,

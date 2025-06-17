@@ -7,8 +7,11 @@ import 'package:repeater/screens/main/main_navigation.dart';
 import 'package:repeater/services/user_preferences.dart';
 import 'package:repeater/widgets/custom_list_view.dart';
 
+import 'package:repeater/screens/home/home_screen.dart';
+
 class ScheduleDetailsScreen extends StatelessWidget {
   final ScheduleEntry scheduleEntry;
+
   const ScheduleDetailsScreen({
     super.key,
     required this.scheduleEntry,
@@ -31,7 +34,7 @@ class ScheduleDetailsScreen extends StatelessWidget {
         : DateFormat.yMMMd().format(scheduleEntry.startDate);
     final time = DateFormat.jm().format(scheduleEntry.startDate);
 
-    void markAsCompleted() {
+    void markAsCompleted(value) {
       final newScheduleEntry = scheduleEntry.copyWith(
         isCompleted: !scheduleEntry.isCompleted,
       );
@@ -152,8 +155,25 @@ class ScheduleDetailsScreen extends StatelessWidget {
             ),
           ),
           ListTile(
+            leading: const Icon(Icons.info_outline),
+            title: const Text('Type Details'),
+            trailing: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(reviewType == 'Sabaq'
+                    ? 'New Memorization'
+                    : reviewType == 'Sabqi'
+                        ? 'Review of recent memorized parts, including the current Sabaq'
+                        : reviewType == 'Manzil'
+                            ? 'Review Old Memorization'
+                            : reviewType),
+              ],
+            ),
+          ),
+          ListTile(
             title: FilledButton.icon(
-              onPressed: markAsCompleted,
+              onPressed: () => markAsCompleted(true),
               icon: Icon(
                 scheduleEntry.isCompleted ? Icons.close : Icons.check,
               ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:repeater/models/user.dart';
 import 'package:repeater/screens/form/intro_screen.dart';
 import 'package:repeater/screens/main/main_navigation.dart';
 import 'package:repeater/services/user_preferences.dart';
@@ -17,6 +18,7 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+  late String currentLocale;
   late String currentTheme;
   late Color currentColor;
 
@@ -62,7 +64,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       ),
     );
 
-    if (!result) return;
+    if (result == false) return;
 
     await UserPreferences().logIn(shouldReschedule: true);
     if (!mounted) return;
@@ -115,6 +117,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           const SectionTitle('Appearance'),
           _setThemeTile(userPrefs),
           _setColorSchemeTile(userPrefs),
+          _setLocaleTile(userPrefs),
           const LargeGap(),
           const SectionTitle('Danger Zone'),
           _rescheduleTile(),
@@ -170,6 +173,30 @@ class _SettingsScreenState extends State<SettingsScreen> {
         onSelected: (value) async {
           setState(() => currentColor = value);
           await userPrefs.updateUser(colorScheme: currentColor.toARGB32());
+        },
+      );
+
+  Widget _setLocaleTile(UserPreferences userPrefs) => PopupMenuButton(
+        tooltip: '',
+        child: ListTile(
+          leading: const Icon(Icons.brightness_6),
+          title: const Text('Language'),
+          trailing: Text(
+            (userPrefs.getUser()?.locale == 'en') ? 'Malay' : 'English',
+          ),
+        ),
+        itemBuilder: (_) {
+          final locales = {'en': 'English', 'ms': 'Malay'};
+          return locales.entries.map((entry) {
+            return PopupMenuItem(
+              value: entry.key,
+              child: Text(entry.value),
+            );
+          }).toList();
+        },
+        onSelected: (String lan) async {
+          setState(() => currentLocale = lan);
+          await userPrefs.updateUser(locale: lan);
         },
       );
 

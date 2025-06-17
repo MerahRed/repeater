@@ -14,6 +14,7 @@ import 'package:repeater/utils/date_time.dart';
 import 'package:repeater/widgets/custom_list_view.dart';
 import 'package:repeater/widgets/gap.dart';
 import 'package:repeater/widgets/section_title.dart';
+import 'package:repeater/l10n/app_localizations.dart';
 
 // sabaq - hafal baru
 // sabqi - mengulang hafal pd juz sedang hafal
@@ -80,45 +81,47 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final lang = AppLocalizations.of(context)!;
     final userPrefs = Provider.of<UserPreferences>(context);
     final user = userPrefs.getUser()!;
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home'),
-      ),
-      body: RefreshIndicator(
-        onRefresh: () async {
-          await userPrefs.logIn();
-          _getSchedules();
-        },
-        child: CustomListView(
-          children: [
-            ..._memorizationSection(user),
-            const LargeGap(),
-            ..._tasksSection(user),
-            const LargeGap(),
-            ..._overallProgressSection(user),
-          ],
+    return Stack(children: [
+      Scaffold(
+        appBar: AppBar(
+          title: Text(lang.home),
+        ),
+        body: RefreshIndicator(
+          onRefresh: () async {
+            await userPrefs.logIn();
+            _getSchedules();
+          },
+          child: CustomListView(
+            children: [
+              ..._memorizationSection(user, context),
+              const LargeGap(),
+              ..._tasksSection(user),
+              const LargeGap(),
+              ..._overallProgressSection(user),
+            ],
+          ),
         ),
       ),
-    );
+    ]);
   }
 
-  List<Widget> _memorizationSection(User user) => [
-        const SectionTitle('Memorization Info'),
+  List<Widget> _memorizationSection(User user, context) => [
+        SectionTitle(AppLocalizations.of(context)!.memorizationInfo),
         ListTile(
           leading: const Icon(Icons.book),
-          title: const Text('Has Khatam'),
-          trailing: Text(
-            (user.juzNumber == null) ? 'Yes' : 'No',
-            style: const TextStyle(fontSize: 15),
+          title: Text(AppLocalizations.of(context)!.hasKhatam),
+          trailing: Icon(
+            (user.juzNumber == null) ? Icons.check : Icons.close,
           ),
         ),
         if (user.juzNumber != null) ...[
           ListTile(
             leading: const Icon(Icons.menu_book),
-            title: const Text('Current Juz'),
+            title: Text(AppLocalizations.of(context)!.currentJuz),
             trailing: Text(
               user.juzNumber.toString(),
               style: const TextStyle(fontSize: 15),
@@ -126,7 +129,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           ListTile(
             leading: const Icon(Icons.brightness_low_outlined),
-            title: const Text('Current Maqra'),
+            title: Text(AppLocalizations.of(context)!.currentMaqra),
             trailing: Text(
               user.maqraNumber.toString(),
               style: const TextStyle(fontSize: 15),
@@ -143,17 +146,21 @@ class _HomeScreenState extends State<HomeScreen> {
               );
             },
             icon: const Icon(Icons.edit),
-            label: const Text('Edit Info'),
+            label: Text(AppLocalizations.of(context)!.editInfo),
           ),
         )
       ];
 
   List<Widget> _tasksSection(User user) => [
-        const SectionTitle('Schedules'),
+        SectionTitle(AppLocalizations.of(context)!.schedules),
         if (todaySchedules.isEmpty)
           const ListTile(
-            leading: Icon(Icons.not_started),
-            title: Text('Your schedules will start tomorrow. ☺️'),
+            title: Center(
+              child: Text(
+                'Your schedules will start tomorrow. ☺️',
+                style: TextStyle(color: Colors.grey),
+              ),
+            ),
           )
         else
           ...todaySchedules.map((scheduleEntry) {

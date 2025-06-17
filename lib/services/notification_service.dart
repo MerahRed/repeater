@@ -64,16 +64,12 @@ class NotificationService {
     AwesomeNotifications().resetGlobalBadge();
   }
 
-  void scheduleNotification(ScheduleEntry scheduleEntry) {
+  void createNotification({
+    required String title,
+    required String body,
+    required DateTime startDate,
+  }) {
     if (kIsWeb) return;
-
-    final juzNumber = scheduleEntry.juzNumber;
-    final maqraNumbers = scheduleEntry.maqraNumbers.join(', ');
-    final fraction =
-        (scheduleEntry.fraction == null) ? '' : ' · ${scheduleEntry.fraction}';
-    final title = scheduleEntry.reviewType;
-    final body = 'Juz $juzNumber · Maqra $maqraNumbers$fraction';
-    final startDate = scheduleEntry.startDate;
 
     AwesomeNotifications().createNotification(
       content: NotificationContent(
@@ -91,6 +87,44 @@ class NotificationService {
         allowWhileIdle: true,
         date: startDate,
       ),
+    );
+  }
+
+  void scheduleNotification(ScheduleEntry scheduleEntry) {
+    if (scheduleEntry.isScheduled) return;
+
+    final juzNumber = scheduleEntry.juzNumber;
+    final maqraNumbers = scheduleEntry.maqraNumbers.join(', ');
+    final fraction =
+        (scheduleEntry.fraction == null) ? '' : ' · ${scheduleEntry.fraction}';
+    final title = scheduleEntry.reviewType!;
+    final body = 'Juz $juzNumber · Maqra $maqraNumbers$fraction';
+    final startDate = scheduleEntry.startDate;
+
+    createNotification(
+      title: title,
+      body: body,
+      startDate: startDate,
+    );
+  }
+
+  void warningNotification(ScheduleEntry scheduleEntry) {
+    if (scheduleEntry.isCompleted == true) return;
+
+    // final juzNumber = scheduleEntry.juzNumber;
+    // final maqraNumbers = scheduleEntry.maqraNumbers.join(', ');
+    // final fraction =
+    //     (scheduleEntry.fraction == null) ? '' : ' · ${scheduleEntry.fraction}';
+    // final reviewType = scheduleEntry.reviewType!;
+    final startDate = scheduleEntry.startDate;
+
+    final title = 'Oops! ';
+    final body = 'You have an incomplete schedule entry for today. ';
+
+    createNotification(
+      title: title,
+      body: body,
+      startDate: startDate,
     );
   }
 }

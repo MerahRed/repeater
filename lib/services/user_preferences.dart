@@ -44,6 +44,7 @@ class UserPreferences extends ChangeNotifier {
     String? themeMode,
     int? colorScheme,
     List<ScheduleEntry>? scheduleHistory,
+    String? locale,
   }) async {
     final user = getUser()!.copyWith(
       juzNumber: juzNumber,
@@ -54,6 +55,7 @@ class UserPreferences extends ChangeNotifier {
       themeMode: themeMode,
       colorScheme: colorScheme,
       scheduleHistory: scheduleHistory,
+      locale: locale,
     );
     await createUser(user);
     notifyListeners();
@@ -113,7 +115,7 @@ class UserPreferences extends ChangeNotifier {
     final tomorrow = today.add(const Duration(days: 1));
     final currentSchedule = List<ScheduleEntry>.from(user.schedules);
     final newSchedules = <ScheduleEntry>[];
-    final scheduleHistory = <ScheduleEntry>[];
+    final scheduleHistory = List<ScheduleEntry>.from(user.scheduleHistory);
 
     final manzilSchedules = user.getSchedulesByReviewType('Manzil');
     final sabaqSchedules = user.getSchedulesByReviewType('Sabaq');
@@ -135,7 +137,23 @@ class UserPreferences extends ChangeNotifier {
 
     for (final scheduleEntry in newSchedules) {
       NotificationService().scheduleNotification(scheduleEntry);
+      // Print if the notification time has passed for 5 minutes
+      if (DateTime.now()
+          .isAfter(scheduleEntry.startDate.add(const Duration(minutes: 5)))) {
+        NotificationService().warningNotification(scheduleEntry);
+      }
+
+      if (scheduleEntry.startDate.isBefore(today)) {
+        scheduleEntry.startDate.add(const Duration(days: 1));
+      }
     }
+
+    // for (final scheduleEntry in currentSchedule) {
+    //   // Only send warning for incomplete schedule entries
+    //   if (scheduleEntry.isCompleted == false) {
+    //     NotificationService().warningNotification(scheduleEntry);
+    //   }
+    // }
 
     for (final scheduleEntry in List<ScheduleEntry>.from(currentSchedule)) {
       if (isToday(scheduleEntry.startDate)) continue;
@@ -153,5 +171,10 @@ class UserPreferences extends ChangeNotifier {
       schedules: currentSchedule,
       scheduleHistory: scheduleHistory,
     );
+  }
+
+  Future<void> clearHistory() async {
+    await updateUser(scheduleHistory: []);
+    notifyListeners();
   }
 }

@@ -1,0 +1,11 @@
+{
+    "home" : "Utama",
+    "memorizationInfo" : "Info Hafazan",
+    "hasKhatam" : "Sudah Khatam",
+    "currentJuz" : "Juz Sekarang",
+    "currentMaqra" : "Maqra Sekarang",
+    "editInfo" : "Ubah Info Hafazan",
+    "schedules" : "Jadual",
+    "seeUpcomingSchedules" : "Lihat Jadual Akan Datang",
+    "seeSchedulesHistory" : "Lihat Sejarah Jadual"
+}

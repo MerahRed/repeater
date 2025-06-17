@@ -1,0 +1,11 @@
+{
+    "home" : "Home",
+    "memorizationInfo" : "Memorization Info",
+    "hasKhatam" : "Has Khatam",
+    "currentJuz" : "Current Juz",
+    "currentMaqra" : "Current Maqra",
+    "editInfo" : "Edit Info",
+    "schedules" : "Schedules",
+    "seeUpcomingSchedules" : "See Upcoming Schedules",
+    "seeSchedulesHistory" : "See Schedules History"
+}

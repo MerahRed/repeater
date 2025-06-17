@@ -33,6 +33,9 @@ class User {
   @HiveField(7)
   List<ScheduleEntry>? _scheduleHistory;
 
+  @HiveField(8)
+  String? _locale;
+
   User({
     int? juzNumber,
     int? maqraNumber,
@@ -42,6 +45,7 @@ class User {
     String? themeMode,
     int? colorScheme,
     List<ScheduleEntry>? scheduleHistory,
+    String? locale,
   })  : _juzNumber = juzNumber,
         _maqraNumber = maqraNumber,
         _juzs = juzs ?? List.generate(30, (_) => Juz()),
@@ -52,7 +56,8 @@ class User {
         _schedules = schedules,
         _themeMode = themeMode,
         _colorScheme = colorScheme,
-        _scheduleHistory = scheduleHistory;
+        _scheduleHistory = scheduleHistory,
+        _locale = locale;
 
   User copyWith({
     int? juzNumber,
@@ -63,6 +68,7 @@ class User {
     String? themeMode,
     int? colorScheme,
     List<ScheduleEntry>? scheduleHistory,
+    String? locale,
   }) {
     return User(
       juzNumber: juzNumber ?? this.juzNumber,
@@ -73,6 +79,7 @@ class User {
       themeMode: themeMode ?? this.themeMode,
       colorScheme: colorScheme ?? this.colorScheme,
       scheduleHistory: scheduleHistory ?? this.scheduleHistory,
+      locale: locale ?? this.locale,
     );
   }
 
@@ -84,6 +91,7 @@ class User {
   String get themeMode => _themeMode ?? 'System';
   int get colorScheme => _colorScheme ?? Colors.teal.toARGB32();
   List<ScheduleEntry> get scheduleHistory => _scheduleHistory ?? [];
+  String get locale => _locale ?? 'en';
 
   List<ScheduleEntry> getSchedulesByReviewType(String reviewType) => schedules
       .where(

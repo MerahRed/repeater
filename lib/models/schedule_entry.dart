@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 
 part 'schedule_entry.g.dart';
@@ -22,6 +23,9 @@ class ScheduleEntry {
   @HiveField(5)
   bool? _isCompleted;
 
+  @HiveField(6)
+  bool? _isScheduled;
+
   ScheduleEntry({
     DateTime? startDate,
     String? reviewType,
@@ -29,12 +33,14 @@ class ScheduleEntry {
     List<int>? maqraNumbers,
     String? fraction,
     bool? isCompleted,
+    bool? isScheduled,
   })  : _startDate = startDate ?? DateTime.now(),
         _reviewType = reviewType,
         _juzNumber = juzNumber,
         _maqraNumbers = maqraNumbers ?? List.generate(8, (index) => index + 1),
         _fraction = fraction,
-        _isCompleted = isCompleted;
+        _isCompleted = isCompleted,
+        _isScheduled = isScheduled;
 
   ScheduleEntry copyWith({
     DateTime? startDate,
@@ -43,6 +49,7 @@ class ScheduleEntry {
     List<int>? maqraNumbers,
     String? fraction,
     bool? isCompleted,
+    bool? isScheduled,
   }) {
     return ScheduleEntry(
       startDate: startDate ?? this.startDate,
@@ -51,6 +58,7 @@ class ScheduleEntry {
       maqraNumbers: maqraNumbers ?? this.maqraNumbers,
       fraction: fraction ?? this.fraction,
       isCompleted: isCompleted ?? this.isCompleted,
+      isScheduled: isScheduled ?? this.isScheduled,
     );
   }
 
@@ -60,8 +68,13 @@ class ScheduleEntry {
   List<int> get maqraNumbers => _maqraNumbers;
   String? get fraction => _fraction;
   bool get isCompleted => _isCompleted ?? false;
+  bool get isScheduled => _isScheduled ?? false;
 
   set isCompleted(bool value) {
-    isCompleted = value;
+    _isCompleted = value;
+  }
+
+  set isScheduled(bool value) {
+    _isScheduled = value;
   }
 }
