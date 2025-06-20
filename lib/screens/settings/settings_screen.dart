@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:repeater/models/user.dart';
 import 'package:repeater/screens/form/intro_screen.dart';
 import 'package:repeater/screens/main/main_navigation.dart';
 import 'package:repeater/services/user_preferences.dart';
@@ -9,6 +8,7 @@ import 'package:repeater/widgets/custom_list_view.dart';
 import 'package:repeater/widgets/gap.dart';
 import 'package:repeater/widgets/section_title.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:repeater/l10n/app_localizations.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -54,13 +54,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
   void _resetSchedules() async {
     final result = await showBoolAlertDialog(
       context,
-      title: 'Reset Schedules',
-      content:
-          'The app will generate new schedules as if you are new to the app. Useful if you have edited your memorization info.',
-      falseText: const Text('Cancel'),
-      trueText: const Text(
-        'Reset',
-        style: TextStyle(color: Colors.red),
+      title: AppLocalizations.of(context)!.resetSchedules,
+      content: AppLocalizations.of(context)!.resetScheduleAbout,
+      falseText: Text(AppLocalizations.of(context)!.cancel),
+      trueText: Text(
+        AppLocalizations.of(context)!.reset,
+        style: const TextStyle(color: Colors.red),
       ),
     );
 
@@ -79,12 +78,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
   void _resetData() async {
     final result = await showBoolAlertDialog(
       context,
-      title: 'Reset Data',
-      content: 'All app data will be deleted and cannot be restored.',
-      falseText: const Text('Cancel'),
-      trueText: const Text(
-        'Reset',
-        style: TextStyle(color: Colors.red),
+      title: AppLocalizations.of(context)!.resetData,
+      content: AppLocalizations.of(context)!.resetDataAbout,
+      falseText: Text(AppLocalizations.of(context)!.cancel),
+      trueText: Text(
+        AppLocalizations.of(context)!.reset,
+        style: const TextStyle(color: Colors.red),
       ),
     );
 
@@ -110,20 +109,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Settings'),
+        title: Text(AppLocalizations.of(context)!.settings),
       ),
       body: CustomListView(
         children: [
-          const SectionTitle('Appearance'),
+          SectionTitle(AppLocalizations.of(context)!.appearance),
           _setThemeTile(userPrefs),
           _setColorSchemeTile(userPrefs),
           _setLocaleTile(userPrefs),
           const LargeGap(),
-          const SectionTitle('Danger Zone'),
+          SectionTitle(AppLocalizations.of(context)!.danger),
           _rescheduleTile(),
           _resetDataTile(),
           const LargeGap(),
-          const SectionTitle('Extras'),
+          SectionTitle(AppLocalizations.of(context)!.extra),
           _userGuideTile(),
           _sendFeedbackTile(),
           _aboutAppTile(),
@@ -136,7 +135,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         tooltip: '',
         child: ListTile(
           leading: const Icon(Icons.brightness_6),
-          title: const Text('Theme'),
+          title: Text(AppLocalizations.of(context)!.theme),
           trailing: Text(currentTheme),
         ),
         itemBuilder: (_) {
@@ -157,7 +156,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         tooltip: '',
         child: ListTile(
           leading: const Icon(Icons.color_lens),
-          title: const Text('Color Scheme'),
+          title: Text(AppLocalizations.of(context)!.color),
           trailing: CircleAvatar(backgroundColor: currentColor),
         ),
         itemBuilder: (_) {
@@ -179,14 +178,27 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget _setLocaleTile(UserPreferences userPrefs) => PopupMenuButton(
         tooltip: '',
         child: ListTile(
-          leading: const Icon(Icons.brightness_6),
-          title: const Text('Language'),
+          leading: const Icon(Icons.language),
+          title: Text(AppLocalizations.of(context)!.language),
           trailing: Text(
-            (userPrefs.getUser()?.locale == 'en') ? 'Malay' : 'English',
+            (userPrefs.getUser()?.locale == 'en')
+                ? 'English'
+                : (userPrefs.getUser()?.locale == 'ms')
+                    ? 'Malay (Latin)'
+                    : (userPrefs.getUser()?.locale == 'ms_Arab')
+                        ? 'Malay (Jawi)'
+                        : (userPrefs.getUser()?.locale == 'ar')
+                            ? 'Arabic'
+                            : 'Unknown',
           ),
         ),
         itemBuilder: (_) {
-          final locales = {'en': 'English', 'ms': 'Malay'};
+          final locales = {
+            'en': 'English',
+            'ms': 'Malay (Latin)',
+            'ms_Arab': 'Malay (Jawi)',
+            'ar': 'Arabic',
+          };
           return locales.entries.map((entry) {
             return PopupMenuItem(
               value: entry.key,
@@ -202,31 +214,31 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Widget _rescheduleTile() => ListTile(
         leading: const Icon(Icons.calendar_month),
-        title: const Text('Reset Schedules'),
+        title: Text(AppLocalizations.of(context)!.resetSchedules),
         onTap: _resetSchedules,
       );
 
   Widget _resetDataTile() => ListTile(
         leading: const Icon(Icons.delete),
-        title: const Text('Reset Data'),
+        title: Text(AppLocalizations.of(context)!.resetData),
         onTap: _resetData,
       );
 
   Widget _userGuideTile() => ListTile(
         onTap: () async => await _launchUrl(userGuideUrl),
         leading: const Icon(Icons.library_books),
-        title: const Text('User Guide'),
+        title: Text(AppLocalizations.of(context)!.guide),
       );
 
   Widget _sendFeedbackTile() => ListTile(
         onTap: () async => await _launchUrl(sendFeedbackUrl),
         leading: const Icon(Icons.mail),
-        title: const Text('Send Feedback'),
+        title: Text(AppLocalizations.of(context)!.sendFeedback),
       );
 
-  Widget _aboutAppTile() => const AboutListTile(
-        icon: Icon(Icons.info),
-        applicationIcon: ClipRRect(
+  Widget _aboutAppTile() => AboutListTile(
+        icon: const Icon(Icons.info),
+        applicationIcon: const ClipRRect(
           borderRadius: BorderRadius.all(Radius.circular(10)),
           child: Image(
             image: AssetImage('assets/icon/icon.png'),
@@ -235,7 +247,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ),
         applicationVersion: 'v0.2.1',
         aboutBoxChildren: [
-          Text('An app to assist hafiz in scheduling timetables.'),
+          Text(AppLocalizations.of(context)!.about),
         ],
       );
 }

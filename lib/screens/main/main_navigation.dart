@@ -3,6 +3,7 @@ import 'package:repeater/screens/home/home_screen.dart';
 import 'package:repeater/screens/notes/notes_screen.dart';
 import 'package:repeater/screens/settings/settings_screen.dart';
 import 'package:repeater/utils/constants/styles.dart';
+import 'package:repeater/l10n/app_localizations.dart';
 
 class MainNavigation extends StatefulWidget {
   const MainNavigation({super.key});
@@ -33,21 +34,21 @@ class _MainNavigationState extends State<MainNavigation> {
           ? NavigationBar(
               selectedIndex: index,
               onDestinationSelected: (value) => setState(() => index = value),
-              destinations: const [
+              destinations: [
                 NavigationDestination(
-                  icon: Icon(Icons.home_outlined),
-                  selectedIcon: Icon(Icons.home),
-                  label: 'Home',
+                  icon: const Icon(Icons.home_outlined),
+                  selectedIcon: const Icon(Icons.home),
+                  label: AppLocalizations.of(context)!.home,
                 ),
                 NavigationDestination(
-                  icon: Icon(Icons.note_outlined),
-                  selectedIcon: Icon(Icons.note),
-                  label: 'Notes',
+                  icon: const Icon(Icons.note_outlined),
+                  selectedIcon: const Icon(Icons.note),
+                  label: AppLocalizations.of(context)!.notes,
                 ),
                 NavigationDestination(
-                  icon: Icon(Icons.settings_outlined),
-                  selectedIcon: Icon(Icons.settings),
-                  label: 'Settings',
+                  icon: const Icon(Icons.settings_outlined),
+                  selectedIcon: const Icon(Icons.settings),
+                  label: AppLocalizations.of(context)!.settings,
                 ),
               ],
             )
@@ -60,21 +61,21 @@ class _MainNavigationState extends State<MainNavigation> {
               onDestinationSelected: (value) => setState(() => index = value),
               backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
               labelType: NavigationRailLabelType.all,
-              destinations: const [
+              destinations: [
                 NavigationRailDestination(
-                  icon: Icon(Icons.home_outlined),
-                  selectedIcon: Icon(Icons.home),
-                  label: Text('Home'),
+                  icon: const Icon(Icons.home_outlined),
+                  selectedIcon: const Icon(Icons.home),
+                  label: Text(AppLocalizations.of(context)!.home),
                 ),
                 NavigationRailDestination(
-                  icon: Icon(Icons.note_outlined),
-                  selectedIcon: Icon(Icons.note),
-                  label: Text('Notes'),
+                  icon: const Icon(Icons.note_outlined),
+                  selectedIcon: const Icon(Icons.note),
+                  label: Text(AppLocalizations.of(context)!.notes),
                 ),
                 NavigationRailDestination(
-                  icon: Icon(Icons.settings_outlined),
-                  selectedIcon: Icon(Icons.settings),
-                  label: Text('Settings'),
+                  icon: const Icon(Icons.settings_outlined),
+                  selectedIcon: const Icon(Icons.settings),
+                  label: Text(AppLocalizations.of(context)!.settings),
                 ),
               ],
             ),

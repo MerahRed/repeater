@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:repeater/l10n/app_localizations.dart';
 import 'package:repeater/screens/main/main_navigation.dart';
 import 'package:repeater/services/user_preferences.dart';
 import 'package:repeater/utils/constants/styles.dart';
@@ -66,7 +67,7 @@ class _EditScreenState extends State<EditScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Edit Info'),
+        title: Text(AppLocalizations.of(context)!.editInfo),
       ),
       body: CustomListView(
         children: [
@@ -75,7 +76,7 @@ class _EditScreenState extends State<EditScreen> {
               'Khatam',
               style: Theme.of(context).textTheme.titleMedium,
             ),
-            subtitle: const Text('Have you finished memorizing the Quran?'),
+            subtitle: Text(AppLocalizations.of(context)!.have),
             value: hasKhatam,
             onChanged: (value) => setState(() => hasKhatam = value),
           ),
@@ -83,10 +84,10 @@ class _EditScreenState extends State<EditScreen> {
             const SmallGap(),
             ListTile(
               title: Text(
-                'Memorization Info',
+                AppLocalizations.of(context)!.memorizationInfo,
                 style: Theme.of(context).textTheme.titleMedium,
               ),
-              subtitle: const Text('Fill in your current memorization info.'),
+              subtitle: Text(AppLocalizations.of(context)!.fill),
             ),
             const SmallGap(),
             ListTile(
@@ -96,10 +97,11 @@ class _EditScreenState extends State<EditScreen> {
                   children: [
                     TextFormField(
                       controller: _juzController,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         labelText: 'Juz*',
-                        helperText: 'Choose a number between 1 - 30.',
-                        border: OutlineInputBorder(
+                        helperText:
+                            '${AppLocalizations.of(context)!.choose} 1 - 30.',
+                        border: const OutlineInputBorder(
                           borderRadius: Styles.mediumBorderRadius,
                         ),
                       ),
@@ -118,17 +120,18 @@ class _EditScreenState extends State<EditScreen> {
                     const MediumGap(),
                     TextFormField(
                       controller: _maqraController,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         labelText: 'Maqra*',
-                        helperText: 'Choose a number between 1 - 8.',
-                        border: OutlineInputBorder(
+                        helperText:
+                            '${AppLocalizations.of(context)!.choose} 1 - 8.',
+                        border: const OutlineInputBorder(
                           borderRadius: Styles.mediumBorderRadius,
                         ),
                       ),
                       validator: (value) {
                         final maqra = int.tryParse(value!);
                         if (maqra == null || maqra < 1 || maqra > 8) {
-                          return 'Invalid input!';
+                          return AppLocalizations.of(context)!.invalidInput;
                         } else {
                           return null;
                         }
@@ -147,7 +150,7 @@ class _EditScreenState extends State<EditScreen> {
             title: FilledButton.icon(
               onPressed: _updateChanges,
               icon: const Icon(Icons.check),
-              label: const Text('Confirm Changes'),
+              label: Text(AppLocalizations.of(context)!.confirm),
             ),
           ),
         ],

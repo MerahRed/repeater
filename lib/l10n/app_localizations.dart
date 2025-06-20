@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
+import 'app_localizations_ar.dart';
 import 'app_localizations_en.dart';
 import 'app_localizations_ms.dart';
 
@@ -94,8 +95,10 @@ abstract class AppLocalizations {
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
+    Locale('ar'),
     Locale('en'),
-    Locale('ms')
+    Locale('ms'),
+    Locale.fromSubtags(languageCode: 'ms', scriptCode: 'Arab')
   ];
 
   /// No description provided for @home.
@@ -140,6 +143,12 @@ abstract class AppLocalizations {
   /// **'Schedules'**
   String get schedules;
 
+  /// No description provided for @sorry.
+  ///
+  /// In en, this message translates to:
+  /// **'Your schedules will start tomorrow. ☺️'**
+  String get sorry;
+
   /// No description provided for @seeUpcomingSchedules.
   ///
   /// In en, this message translates to:
@@ -151,6 +160,282 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'See Schedules History'**
   String get seeSchedulesHistory;
+
+  /// No description provided for @overallProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Overall Progress'**
+  String get overallProgress;
+
+  /// No description provided for @fullyMemorized.
+  ///
+  /// In en, this message translates to:
+  /// **'Fully Memorized'**
+  String get fullyMemorized;
+
+  /// No description provided for @partiallyMemorized.
+  ///
+  /// In en, this message translates to:
+  /// **'Partially Memorized'**
+  String get partiallyMemorized;
+
+  /// No description provided for @notMemorized.
+  ///
+  /// In en, this message translates to:
+  /// **'Not Memorized'**
+  String get notMemorized;
+
+  /// No description provided for @settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settings;
+
+  /// No description provided for @appearance.
+  ///
+  /// In en, this message translates to:
+  /// **'Apperance'**
+  String get appearance;
+
+  /// No description provided for @theme.
+  ///
+  /// In en, this message translates to:
+  /// **'Theme'**
+  String get theme;
+
+  /// No description provided for @color.
+  ///
+  /// In en, this message translates to:
+  /// **'Color Scheme'**
+  String get color;
+
+  /// No description provided for @language.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get language;
+
+  /// No description provided for @danger.
+  ///
+  /// In en, this message translates to:
+  /// **'Danger Zone'**
+  String get danger;
+
+  /// No description provided for @resetSchedules.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset Schedules'**
+  String get resetSchedules;
+
+  /// No description provided for @resetData.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset Data'**
+  String get resetData;
+
+  /// No description provided for @extra.
+  ///
+  /// In en, this message translates to:
+  /// **'Extras'**
+  String get extra;
+
+  /// No description provided for @guide.
+  ///
+  /// In en, this message translates to:
+  /// **'User Guide'**
+  String get guide;
+
+  /// No description provided for @sendFeedback.
+  ///
+  /// In en, this message translates to:
+  /// **'Send Feedback'**
+  String get sendFeedback;
+
+  /// No description provided for @notes.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes'**
+  String get notes;
+
+  /// No description provided for @upcomingSchedules.
+  ///
+  /// In en, this message translates to:
+  /// **'Upcoming Schedules'**
+  String get upcomingSchedules;
+
+  /// No description provided for @scheduleHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Schedule History'**
+  String get scheduleHistory;
+
+  /// No description provided for @noHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'No History Found'**
+  String get noHistory;
+
+  /// No description provided for @have.
+  ///
+  /// In en, this message translates to:
+  /// **'Have you finished memorizing the Quran?'**
+  String get have;
+
+  /// No description provided for @fill.
+  ///
+  /// In en, this message translates to:
+  /// **'Fill in your current memorization info'**
+  String get fill;
+
+  /// No description provided for @choose.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a number between'**
+  String get choose;
+
+  /// No description provided for @confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm changes'**
+  String get confirm;
+
+  /// No description provided for @invalidInput.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid Input'**
+  String get invalidInput;
+
+  /// No description provided for @about.
+  ///
+  /// In en, this message translates to:
+  /// **'An app to assist hafiz in scheduling timetables.'**
+  String get about;
+
+  /// No description provided for @resetScheduleAbout.
+  ///
+  /// In en, this message translates to:
+  /// **'The app will generate new schedules as if you are new to the app.\nUseful if you have edited your memorization info.'**
+  String get resetScheduleAbout;
+
+  /// No description provided for @resetDataAbout.
+  ///
+  /// In en, this message translates to:
+  /// **'All app data will be deleted and cannot be restored.'**
+  String get resetDataAbout;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'cancel'**
+  String get cancel;
+
+  /// No description provided for @reset.
+  ///
+  /// In en, this message translates to:
+  /// **'reset'**
+  String get reset;
+
+  /// No description provided for @noResult.
+  ///
+  /// In en, this message translates to:
+  /// **'No Results.'**
+  String get noResult;
+
+  /// No description provided for @noInternet.
+  ///
+  /// In en, this message translates to:
+  /// **'No Internet Connection!'**
+  String get noInternet;
+
+  /// No description provided for @memorizedMaqras.
+  ///
+  /// In en, this message translates to:
+  /// **'Memorized Maqras'**
+  String get memorizedMaqras;
+
+  /// No description provided for @which.
+  ///
+  /// In en, this message translates to:
+  /// **'Which maqras did you still remember?'**
+  String get which;
+
+  /// No description provided for @delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get delete;
+
+  /// No description provided for @today.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get today;
+
+  /// No description provided for @scheduleDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Schedule Details'**
+  String get scheduleDetails;
+
+  /// No description provided for @reviewType.
+  ///
+  /// In en, this message translates to:
+  /// **'Review Type'**
+  String get reviewType;
+
+  /// No description provided for @portion.
+  ///
+  /// In en, this message translates to:
+  /// **'Portion'**
+  String get portion;
+
+  /// No description provided for @time.
+  ///
+  /// In en, this message translates to:
+  /// **'Time'**
+  String get time;
+
+  /// No description provided for @typeDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'Type Details'**
+  String get typeDetail;
+
+  /// No description provided for @sabaqDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'New Memorization'**
+  String get sabaqDetails;
+
+  /// No description provided for @sabqiDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Review of recent memorized parts'**
+  String get sabqiDetails;
+
+  /// No description provided for @manzilDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Review Old Memorization'**
+  String get manzilDetails;
+
+  /// No description provided for @completed.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark as Completed'**
+  String get completed;
+
+  /// No description provided for @incompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark as Incompleted'**
+  String get incompleted;
+
+  /// No description provided for @retry.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get retry;
 }
 
 class _AppLocalizationsDelegate
@@ -164,15 +449,29 @@ class _AppLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      <String>['en', 'ms'].contains(locale.languageCode);
+      <String>['ar', 'en', 'ms'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
 }
 
 AppLocalizations lookupAppLocalizations(Locale locale) {
+  // Lookup logic when language+script codes are specified.
+  switch (locale.languageCode) {
+    case 'ms':
+      {
+        switch (locale.scriptCode) {
+          case 'Arab':
+            return AppLocalizationsMsArab();
+        }
+        break;
+      }
+  }
+
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
+    case 'ar':
+      return AppLocalizationsAr();
     case 'en':
       return AppLocalizationsEn();
     case 'ms':

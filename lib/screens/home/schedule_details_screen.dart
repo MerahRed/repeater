@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:repeater/l10n/app_localizations.dart';
+import 'package:repeater/l10n/app_localizations_ar.dart';
 import 'package:repeater/models/maqra.dart';
 import 'package:repeater/models/schedule_entry.dart';
 import 'package:repeater/screens/main/main_navigation.dart';
 import 'package:repeater/services/user_preferences.dart';
 import 'package:repeater/widgets/custom_list_view.dart';
-
-import 'package:repeater/screens/home/home_screen.dart';
 
 class ScheduleDetailsScreen extends StatelessWidget {
   final ScheduleEntry scheduleEntry;
@@ -30,7 +30,7 @@ class ScheduleDetailsScreen extends StatelessWidget {
         'Maqra ${scheduleEntry.maqraNumbers.join(', ')}$fraction';
     final date = (DateFormat.yMMMd().format(DateTime.now()) ==
             DateFormat.yMMMd().format(scheduleEntry.startDate))
-        ? "Today"
+        ? AppLocalizations.of(context)!.today
         : DateFormat.yMMMd().format(scheduleEntry.startDate);
     final time = DateFormat.jm().format(scheduleEntry.startDate);
 
@@ -121,18 +121,18 @@ class ScheduleDetailsScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Schedule Details'),
+        title: Text(AppLocalizations.of(context)!.scheduleDetails),
       ),
       body: CustomListView(
         children: [
           ListTile(
             leading: const Icon(Icons.loop),
-            title: const Text('Review Type'),
+            title: Text(AppLocalizations.of(context)!.reviewType),
             trailing: Text(reviewType),
           ),
           ListTile(
             leading: const Icon(Icons.book),
-            title: const Text('Portion'),
+            title: Text(AppLocalizations.of(context)!.portion),
             trailing: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.end,
@@ -144,7 +144,7 @@ class ScheduleDetailsScreen extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.timer),
-            title: const Text('Time'),
+            title: Text(AppLocalizations.of(context)!.time),
             trailing: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.end,
@@ -156,17 +156,17 @@ class ScheduleDetailsScreen extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.info_outline),
-            title: const Text('Type Details'),
+            title: Text(AppLocalizations.of(context)!.typeDetail),
             trailing: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(reviewType == 'Sabaq'
-                    ? 'New Memorization'
+                    ? AppLocalizations.of(context)!.sabaqDetails
                     : reviewType == 'Sabqi'
-                        ? 'Review of recent memorized parts, including the current Sabaq'
+                        ? AppLocalizations.of(context)!.sabqiDetails
                         : reviewType == 'Manzil'
-                            ? 'Review Old Memorization'
+                            ? AppLocalizations.of(context)!.manzilDetails
                             : reviewType),
               ],
             ),
@@ -179,8 +179,8 @@ class ScheduleDetailsScreen extends StatelessWidget {
               ),
               label: Text(
                 scheduleEntry.isCompleted
-                    ? 'Mark as Incompleted'
-                    : 'Mark as Completed',
+                    ? AppLocalizations.of(context)!.incompleted
+                    : AppLocalizations.of(context)!.completed,
               ),
             ),
           ),

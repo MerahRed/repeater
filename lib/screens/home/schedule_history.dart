@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:repeater/l10n/app_localizations.dart';
+import 'package:repeater/l10n/app_localizations_ar.dart';
 import 'package:repeater/screens/home/schedule_list_tile.dart';
 import 'package:repeater/screens/main/main_navigation.dart';
 import 'package:repeater/services/user_preferences.dart';
@@ -21,7 +23,7 @@ class _ScheduleHistoryState extends State<ScheduleHistory> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Schedule History'),
+        title: Text(AppLocalizations.of(context)!.scheduleHistory),
         actions: [
           IconButton(
             onPressed: () async {
@@ -35,18 +37,19 @@ class _ScheduleHistoryState extends State<ScheduleHistory> {
                   (route) => false);
             },
             icon: const Icon(Icons.delete),
-            tooltip: 'Delete All',
+            tooltip: AppLocalizations.of(context)!.delete,
           ),
         ],
       ),
       body: CustomListView(
         children: widget.schedules.isEmpty
             ? [
-                const Center(
+                Center(
                   child: Padding(
-                    padding: EdgeInsets.all(10),
-                    child: Text('No history found.',
-                        style: TextStyle(color: Colors.grey)),
+                    padding: const EdgeInsets.all(10),
+                    child: Text(AppLocalizations.of(context)!.noHistory,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(color: Colors.grey)),
                   ),
                 ),
               ]

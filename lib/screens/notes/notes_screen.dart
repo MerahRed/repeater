@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:repeater/l10n/app_localizations.dart';
 import 'package:repeater/utils/constants/styles.dart';
 import 'package:repeater/screens/notes/note_tile.dart';
 import 'package:http/http.dart' as http;
@@ -34,7 +35,7 @@ class _NotesScreenState extends State<NotesScreen> {
     try {
       final response = await http.get(
         Uri.parse(
-            'https://adaniel52.github.io/repeater/api/notes/metadata.json'),
+            'https://merahred.github.io/repeaterWeb/api/notes/metadata.json'),
       );
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
@@ -60,7 +61,7 @@ class _NotesScreenState extends State<NotesScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Notes'),
+        title: Text(AppLocalizations.of(context)!.notes),
       ),
       body: (_notes.isEmpty)
           ? Center(
@@ -70,13 +71,13 @@ class _NotesScreenState extends State<NotesScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Icon(Icons.wifi_off),
-                        const Text(
-                          'No internet connection!',
+                        Text(
+                          AppLocalizations.of(context)!.noInternet,
                           textAlign: TextAlign.center,
                         ),
                         TextButton(
                           onPressed: _fetchData,
-                          child: const Text('Retry'),
+                          child: Text(AppLocalizations.of(context)!.retry),
                         ),
                       ],
                     ),

@@ -6,6 +6,7 @@ import 'package:repeater/utils/constants/styles.dart';
 import 'package:repeater/widgets/custom_list_view.dart';
 import 'package:repeater/widgets/gap.dart';
 import 'package:repeater/screens/main/main_navigation.dart';
+import 'package:repeater/l10n/app_localizations.dart';
 
 class JuzDetailsScreen extends StatefulWidget {
   final int number;
@@ -46,10 +47,10 @@ class _JuzDetailsScreenState extends State<JuzDetailsScreen> {
         children: [
           ListTile(
             title: Text(
-              'Memorized Maqras',
+              AppLocalizations.of(context)!.memorizedMaqras,
               style: Theme.of(context).textTheme.titleMedium,
             ),
-            subtitle: const Text('Which maqras did you still remember?'),
+            subtitle: Text(AppLocalizations.of(context)!.which),
           ),
           const MediumGap(),
           ...maqras.map((maqra) {
@@ -64,7 +65,7 @@ class _JuzDetailsScreenState extends State<JuzDetailsScreen> {
           ListTile(
             title: FilledButton.icon(
               icon: const Icon(Icons.check),
-              label: const Text('Confirm Changes'),
+              label: Text(AppLocalizations.of(context)!.confirm),
               onPressed: () async {
                 await Provider.of<UserPreferences>(context, listen: false)
                     .updateMaqras(

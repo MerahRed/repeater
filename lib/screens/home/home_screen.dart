@@ -29,11 +29,19 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<Juz> filteredJuzs = [];
-  Map<String, bool> filters = {
-    'Fully Memorized': false,
-    'Partially Memorized': false,
-    'Not Memorized': false,
-  };
+  late Map<String, bool> filters;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final lang = AppLocalizations.of(context)!;
+    filters = {
+      lang.fullyMemorized: false,
+      lang.partiallyMemorized: false,
+      lang.notMemorized: false,
+    };
+  }
+
   List<ScheduleEntry> todaySchedules = [];
   List<ScheduleEntry> upcomingSchedules = [];
   List<ScheduleEntry> scheduleHistory = [];
@@ -69,11 +77,18 @@ class _HomeScreenState extends State<HomeScreen> {
   void _filterJuzs(List<Juz> allJuzs) {
     setState(() {
       filteredJuzs = allJuzs.where((juz) {
-        if (filters['Fully Memorized']! && !juz.isFullyMemorized) return false;
-        if (filters['Partially Memorized']! && !juz.isPartiallyMemorized) {
+        if (filters[AppLocalizations.of(context)!.fullyMemorized]! &&
+            !juz.isFullyMemorized) {
           return false;
         }
-        if (filters['Not Memorized']! && !juz.isNotMemorized) return false;
+        if (filters[AppLocalizations.of(context)!.partiallyMemorized]! &&
+            !juz.isPartiallyMemorized) {
+          return false;
+        }
+        if (filters[AppLocalizations.of(context)!.notMemorized]! &&
+            !juz.isNotMemorized) {
+          return false;
+        }
         return true;
       }).toList();
     });
@@ -154,11 +169,11 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Widget> _tasksSection(User user) => [
         SectionTitle(AppLocalizations.of(context)!.schedules),
         if (todaySchedules.isEmpty)
-          const ListTile(
+          ListTile(
             title: Center(
               child: Text(
-                'Your schedules will start tomorrow. ☺️',
-                style: TextStyle(color: Colors.grey),
+                AppLocalizations.of(context)!.sorry,
+                style: const TextStyle(color: Colors.grey),
               ),
             ),
           )
@@ -180,7 +195,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 },
                 icon: const Icon(Icons.upcoming),
-                label: const Text('See Upcoming Schedules'),
+                label: Text(AppLocalizations.of(context)!.seeUpcomingSchedules),
               ),
               FilledButton.tonalIcon(
                 onPressed: () {
@@ -192,7 +207,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   );
                 },
-                label: const Text('See Schedules History'),
+                label: Text(AppLocalizations.of(context)!.seeSchedulesHistory),
                 icon: const Icon(Icons.history),
               ),
             ],
@@ -201,7 +216,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ];
 
   List<Widget> _overallProgressSection(User user) => [
-        const SectionTitle('Overall Progress'),
+        SectionTitle(AppLocalizations.of(context)!.overallProgress),
         ListTile(
           title: Wrap(
             spacing: Styles.smallSpacing,
@@ -222,9 +237,9 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         if (filteredJuzs.isEmpty)
-          const ListTile(
-            leading: Icon(Icons.not_interested),
-            title: Text('No results.'),
+          ListTile(
+            leading: const Icon(Icons.not_interested),
+            title: Text(AppLocalizations.of(context)!.noResult),
           )
         else
           ...filteredJuzs.map((juz) {

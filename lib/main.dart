@@ -40,6 +40,12 @@ class MainApp extends StatelessWidget {
 
     return MaterialApp(
       locale: Locale(user?.locale ?? 'ms'),
+      builder: (context, child) {
+        return Directionality(
+          textDirection: TextDirection.ltr, // Force Left-to-Right
+          child: child!,
+        );
+      },
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
@@ -49,6 +55,8 @@ class MainApp extends StatelessWidget {
       supportedLocales: const [
         Locale("ms"),
         Locale("en"),
+        Locale("ar"),
+        Locale("ms", "Arab"),
       ],
       debugShowCheckedModeBanner: false,
       title: 'Repeater',
